@@ -11,3 +11,6 @@ export const Axios = axios.create({
 export const get = async (url, params) => {
     return await Axios.get(url, {params});
 }
+export const post = async (url, params) => {
+    return await Axios.post(url, params);
+}
