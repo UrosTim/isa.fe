@@ -3,6 +3,8 @@
 import {useForm} from "react-hook-form";
 import {Button, Col, Row} from "reactstrap";
 import {post} from "@/core/httpClient";
+import {useTestActions} from "@/contexts/testContext";
+import {testAction} from "@/core/testAction";
 
 export default function UserCreate() {
 
@@ -13,8 +15,13 @@ export default function UserCreate() {
         formState: {errors},
     } = useForm({mode: "onSubmit"});
 
+    const {state, dispatch} = useTestActions();
+
     return (
         <>
+            <Row className="mb-5">
+                <h5>Create User</h5>
+            </Row>
             <Row className="mb-4">
                 <Col md={6}>
                     <input
@@ -87,7 +94,7 @@ export default function UserCreate() {
                 <Col className="d-flex justify-content-end">
                     <Button className="btn btn-primary" type="button" onClick={() => {
                         handleSubmit(async (data) => {
-                            await post("/user/create-user-body", data);
+                            await post("/user/create", data);
                         })();
                     }}>
                         Submit
