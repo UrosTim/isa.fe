@@ -1,15 +1,15 @@
 'use client';
 
-import Link from "next/link";
 import useListData from "@/hooks/useListData";
 import {useEffect, useState} from "react";
 import DataTable from "react-data-table-component"
-import {Button, Modal, ModalBody, ModalFooter, ModalHeader, Row, Spinner} from "reactstrap";
-import {useTestActions} from "@/contexts/testContext";
+import {Button, Card, CardBody, CardHeader, Spinner} from "reactstrap";
 import {CiEdit, CiTrash} from "react-icons/ci";
 import listAction from "@/core/listAction";
 import {useListActions} from "@/contexts/listActionContext";
 import {AllUserDialogs} from "@/elements/User/AllUserDialogs";
+import {IoAddCircleOutline} from "react-icons/io5";
+import {signIn, useSession} from "next-auth/react";
 
 export const tableColumns = [
     {
@@ -35,7 +35,7 @@ export const tableColumns = [
             return (
                 <>
                     <Button
-                        className="btn btn-light me-3"
+                        className="btn btn-primary me-3"
                         onClick={() => {
                             dispatch({
                                 type: listAction.UPDATE,
@@ -88,21 +88,40 @@ export default function UserList() {
         setPageSize(newPerPage);
     };
 
+    const {data: session, status} = useSession();
+
+    console.log(session);
+
     return (
         <>
-            {data != null && <DataTable data={data.users}
-                       columns={tableColumns}
-                       striped={true}
-                       noHeader={true}
-                       pagination
-                       paginationServer
-                       progresPending={loading}
-                       paginationTotalRows={data.totalElements}
-                       onChangePage={handlePageNumber}
-                       onChangeRowsPerPage={handlePerRowChange}
-                       progressComponent={<Spinner color="danger">Loading...</Spinner>}
-                       highlightOnHover
-                       />}
+            <Card>
+                <CardHeader className="d-flex justify-content-end">
+                    <Button
+                        className="btn btn-success me-3"
+                        onClick={() => {
+                            dispatch({
+                                type: listAction.CREATE,
+                            })
+                        }}>
+                        Create User <IoAddCircleOutline />
+                    </Button>
+                </CardHeader>
+                <CardBody>
+                    {data != null && <DataTable data={data.users}
+                                                columns={tableColumns}
+                                                striped={true}
+                                                noHeader={true}
+                                                pagination
+                                                paginationServer
+                                                progresPending={loading}
+                                                paginationTotalRows={data.totalElements}
+                                                onChangePage={handlePageNumber}
+                                                onChangeRowsPerPage={handlePerRowChange}
+                                                progressComponent={<Spinner color="danger">Loading...</Spinner>}
+                                                highlightOnHover
+                    />}
+                </CardBody>
+            </Card>
             <AllUserDialogs />
         </>
     )

@@ -3,11 +3,10 @@ import {useListActions} from "@/contexts/listActionContext";
 import listAction from "@/core/listAction";
 import {useForm} from "react-hook-form";
 import {post, put} from "@/core/httpClient";
-import {useEffect} from "react";
 import {toast} from "react-toastify";
 
-export const UpdateUserDialog = ({isOpen}) => {
-    const {state, dispatch} = useListActions();
+export const CreateUserDialog = ({isOpen}) => {
+    const {dispatch} = useListActions();
 
     const toggle = () => dispatch({
         type: listAction.RESET,
@@ -21,16 +20,7 @@ export const UpdateUserDialog = ({isOpen}) => {
         setValue,
     } = useForm({
         mode: "onSubmit",
-        defaultValues: state.row,
     });
-
-    useEffect(() => {
-        setValue("firstName", state.row.firstName);
-        setValue("lastName", state.row.lastName);
-        setValue("email", state.row.email);
-        setValue("id", state.row.id);
-        setValue("contactNumber", state.row.contactNumber);
-    }, [state]);
 
     return (
         <Modal isOpen={isOpen} toggle={toggle}>
@@ -130,9 +120,9 @@ export const UpdateUserDialog = ({isOpen}) => {
                     <Col className="d-flex justify-content-end">
                         <Button className="btn" color="primary" type="button" onClick={() => {
                             handleSubmit(async (data) => {
-                                let result = await put("/user/update", data);
+                                let result = await post("/user/create", data);
                                 if (result && result.status === 200) {
-                                    toast.success("Updated user info successfully!")
+                                    toast.success("Created user successfully!")
                                     dispatch({
                                         type: listAction.RELOAD,
                                     });

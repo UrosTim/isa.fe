@@ -14,6 +14,10 @@ const listActionReducer = (state, action) => {
             return {...initialState, reload: true};
         case listAction.UPDATE:
             return {...state, row: action.payload, type: listAction.UPDATE};
+        case listAction.DELETE:
+            return {...state, row: action.payload, type: listAction.DELETE};
+        case listAction.CREATE:
+            return {...state, row: {}, type: listAction.CREATE};
         case listAction.RESET:
             return initialState;
         default:
