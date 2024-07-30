@@ -2,7 +2,7 @@ import {Button, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row} from "reac
 import {useListActions} from "@/contexts/listActionContext";
 import listAction from "@/core/listAction";
 import {useForm} from "react-hook-form";
-import {post, put} from "@/core/httpClient";
+import {put} from "@/core/httpClient";
 import {useEffect} from "react";
 import {toast} from "react-toastify";
 
