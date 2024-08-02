@@ -9,7 +9,6 @@ import listAction from "@/core/listAction";
 import {useListActions} from "@/contexts/listActionContext";
 import {AllUserDialogs} from "@/elements/User/AllUserDialogs";
 import {IoAddCircleOutline} from "react-icons/io5";
-import {useSession} from "next-auth/react";
 
 export const tableColumns = [
     {
@@ -87,10 +86,6 @@ export default function UserList() {
         setPageNumber(page);
         setPageSize(newPerPage);
     };
-
-    const {data: session, status} = useSession();
-
-    console.log(session);
 
     return (
         <>
