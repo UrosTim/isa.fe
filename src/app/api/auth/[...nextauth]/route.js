@@ -20,10 +20,10 @@ const handler = NextAuth({
                 },
             },
             async authorize(credentials, req){
-                const res = await post("/auth/login", JSON.stringify({
+                const res = await post("/auth/login", {
                     email: credentials?.email,
                     password: credentials?.password,
-                }));
+                });
 
                 if (res && res.data) {
                     return res.data;

@@ -88,10 +88,6 @@ export default function UserList() {
         setPageSize(newPerPage);
     };
 
-    const {data: session, status} = useSession();
-
-    console.log(session);
-
     return (
         <>
             <Card>
